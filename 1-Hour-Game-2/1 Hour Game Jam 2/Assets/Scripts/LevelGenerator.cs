@@ -7,9 +7,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject player;
     public Camera cam;
-
-    public GameObject floorPrefab;
-    
+        
     private float floorY = 0.0f;
 
     LinkedList<GameObject> floorList;

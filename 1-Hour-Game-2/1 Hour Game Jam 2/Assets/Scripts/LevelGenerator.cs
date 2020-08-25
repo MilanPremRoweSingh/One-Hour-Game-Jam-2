@@ -27,13 +27,7 @@ public class LevelGenerator : MonoBehaviour
 
         GenerateFloor();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     public void GenerateFloor()
     {
         if (floorList.Count > maxFloors)

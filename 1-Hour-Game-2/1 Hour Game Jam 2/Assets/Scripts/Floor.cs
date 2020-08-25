@@ -19,28 +19,38 @@ public class Floor : MonoBehaviour
     GameObject leftSide;
     GameObject rightSide;
     BoxCollider trigger;
+    float triggerScale;
 
     void Start()
+    {
+        leftSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        rightSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        triggerScale = -1.0f;
+    }
+
+    public void Randomize()
     {
         Vector3 position = transform.position;
         holeWidth = Random.Range(minHoleWidth, maxHoleWidth);
         holeX = Random.Range(holeWidth / 2.0f, 1 - holeWidth / 2.0f);
-        
-        // left side
-        GameObject left = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        left.transform.localScale = new Vector3(scale, floorThickness, 1.0f);
-        float leftX = scale*(-1.0f/2 - holeWidth/2 - (0.5f-holeX));
-        left.transform.position = new Vector3(position.x + leftX, position.y, position.z);
 
-        // right side
-        GameObject right = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        right.transform.localScale = new Vector3(scale, floorThickness, 1.0f);
-        float rightX = scale + leftX + scale*holeWidth;
-        right.transform.position = new Vector3(position.x + rightX, position.y, position.z);
+        leftSide.transform.localScale = new Vector3(scale, floorThickness, 1.0f);
+        float leftX = scale * (-1.0f / 2 - holeWidth / 2 - (0.5f - holeX));
+        leftSide.transform.position = new Vector3(position.x + leftX, position.y, position.z);
+
+        rightSide.transform.localScale = new Vector3(scale, floorThickness, 1.0f);
+        float rightX = scale + leftX + scale * holeWidth;
+        rightSide.transform.position = new Vector3(position.x + rightX, position.y, position.z);
     }
+
+    private void Update()
+    {
+        
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        levelGenerator.GenerateFloor();
     }
 }

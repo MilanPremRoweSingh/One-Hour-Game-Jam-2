@@ -24,7 +24,11 @@ public class Floor : MonoBehaviour
     void Start()
     {
         leftSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        leftSide.AddComponent<BoxCollider2D>().isTrigger = true;
+        leftSide.tag = "Murderer";
         rightSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        rightSide.AddComponent<BoxCollider2D>().isTrigger = true;
+        rightSide.tag = "Murderer";
         trigger = gameObject.AddComponent<BoxCollider>();
         trigger.isTrigger = true;
         trigger.transform.localScale = new Vector3(scale, floorThickness, 1.0f);

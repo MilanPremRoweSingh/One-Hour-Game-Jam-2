@@ -5,7 +5,6 @@ using UnityEngine.Assertions;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public GameObject player;
     public Camera cam;
         
     private float floorY = 0.0f;

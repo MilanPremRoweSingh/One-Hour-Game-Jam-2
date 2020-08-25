@@ -32,7 +32,6 @@ public class LevelGenerator : MonoBehaviour
         Floor.floorThickness = 0.25f;
         Floor.scale = 2 * cam.orthographicSize * cam.aspect;
 
-        floorList.AddFirst(new Floor());
     }
 
     // Update is called once per frame

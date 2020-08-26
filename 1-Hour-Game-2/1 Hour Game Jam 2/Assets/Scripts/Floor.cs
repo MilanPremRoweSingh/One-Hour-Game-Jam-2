@@ -37,6 +37,7 @@ public class Floor : MonoBehaviour
         rightSide.tag = "Murderer";
         trigger = gameObject.AddComponent<BoxCollider>();
         trigger.isTrigger = true;
+        trigger.tag = "Hole";
         trigger.size = new Vector3(floorScale, levelGenerator.floorThickness, 1.0f);
         Randomize();
     }

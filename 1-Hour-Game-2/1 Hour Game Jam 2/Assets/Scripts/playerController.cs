@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidBody;
     public float terminalVelocity;
     private int jumpsUsed = 0;
-    private Vector3 startPos;    
-    
+    private Vector3 startPos;
+    public Material baseJump;
+    public Material secondJump;
+    public Material thirdJump;
+    public Material postFourthJump;
+
     // Start is called before the first frame update
     void Start()
     {
+        UpdateMaterial();
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.drag = 0f;
         //rigidBody.drag = GetDragFromAcceleration(Physics.gravity.magnitude, terminalVelocity);
@@ -33,11 +38,20 @@ public class PlayerController : MonoBehaviour
             {
                 jumpVelocity = Vector3.up * (1f + jumpsUsed * 0.5f) * terminalVelocity;
                 jumpsUsed++;
+                UpdateMaterial();
             }
         }
         float sign = Mathf.Round(Input.GetAxisRaw("Horizontal"));
         Vector3 horzVelocity = Vector3.right * sign * terminalVelocity;
         rigidBody.velocity = new Vector3(horzVelocity.x, jumpVelocity.y > 0f ? jumpVelocity.y : rigidBody.velocity.y);
+    }
+
+    void UpdateMaterial()
+    {
+        if(jumpsUsed == 0) GetComponent<MeshRenderer>().material = baseJump;
+        else if (jumpsUsed == 1) GetComponent<MeshRenderer>().material = secondJump;
+        else if (jumpsUsed == 2) GetComponent<MeshRenderer>().material = thirdJump;
+        else GetComponent<MeshRenderer>().material = postFourthJump;
     }
 
     public static float GetDrag(float aVelocityChange, float aFinalVelocity)
@@ -54,6 +68,8 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = startPos;
         rigidBody.velocity = Vector3.zero;
+        jumpsUsed = 0;
+        UpdateMaterial();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,7 +80,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Hole")
         {
-            if(other.transform.gameObject.transform.position.y < rigidBody.position.y) jumpsUsed = 0;
+            if (other.transform.gameObject.transform.position.y < rigidBody.position.y)
+            {
+                jumpsUsed = 0;
+                UpdateMaterial();
+            }
         }
     }
 }

@@ -13,16 +13,17 @@ public class LevelGenerator : MonoBehaviour
     public int maxFloors;
     public float minFloorDistance;
     public float maxFloorDistance;
-    
+    public float maxHoleWidth;
+    public float minHoleWidth;
+    public float floorThickness;
+
+
     // Start is called before the first frame update
     void Start()
     {
         floorList = new LinkedList<GameObject>();
 
-        Floor.maxHoleWidth = 0.25f;
-        Floor.minHoleWidth = 0.2f;
-        Floor.floorThickness = 0.25f;
-        Floor.scale = 2 * cam.orthographicSize * cam.aspect;
+        Floor.cam = cam;
         Floor.levelGenerator = this;
 
         GenerateFloor();
@@ -30,23 +31,12 @@ public class LevelGenerator : MonoBehaviour
     
     public void GenerateFloor()
     {
-        if (floorList.Count > maxFloors)
-        {
-            GameObject floor = floorList.First.Value;
-            floorList.RemoveFirst();
-            floor.transform.position = new Vector3(transform.position.x, floorY, transform.position.z);
-            floor.GetComponent<Floor>().Randomize();
-            floorList.AddLast(floor);
-        }
-        else
-        {
-            GameObject floor = new GameObject(string.Format("Floor {0}", floorList.Count + 1));
-            floor.transform.position = new Vector3(transform.position.x, floorY, transform.position.z);
-            floor.AddComponent<Floor>();
-            floorList.AddLast(floor);
-
-        }
+        GameObject floor = new GameObject(string.Format("Floor {0}", floorList.Count + 1));
+        floor.transform.position = new Vector3(transform.position.x, floorY, transform.position.z);
+        floor.AddComponent<Floor>();
+        floorList.AddLast(floor);
         floorY -= Random.Range(minFloorDistance, maxFloorDistance);
+        floor.transform.SetParent(transform);
     }
 
 }

@@ -556,6 +556,18 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1109977879}
+    - target: {fileID: 8375762556088753905, guid: a30e4f6e30303ea4d9941917c31dedef, type: 3}
+      propertyPath: maxHoleWidth
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375762556088753905, guid: a30e4f6e30303ea4d9941917c31dedef, type: 3}
+      propertyPath: minHoleWidth
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375762556088753905, guid: a30e4f6e30303ea4d9941917c31dedef, type: 3}
+      propertyPath: floorThickness
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8375762556088753906, guid: a30e4f6e30303ea4d9941917c31dedef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

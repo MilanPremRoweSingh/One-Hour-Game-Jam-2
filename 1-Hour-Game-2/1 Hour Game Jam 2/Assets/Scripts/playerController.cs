@@ -6,6 +6,8 @@ public class playerController : MonoBehaviour
 {
     private Rigidbody rigidBody;
     public float terminalVelocity;
+
+    private Vector3 startPos;
     
     
     // Start is called before the first frame update
@@ -14,6 +16,8 @@ public class playerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.drag = 0f;
         //rigidBody.drag = GetDragFromAcceleration(Physics.gravity.magnitude, terminalVelocity);
+
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -45,7 +49,8 @@ public class playerController : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        transform.position = startPos;
+        rigidBody.velocity = Vector3.zero;
     }
 
     private void OnTriggerEnter(Collider other)

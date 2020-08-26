@@ -43,11 +43,16 @@ public class playerController : MonoBehaviour
         return GetDrag(aAcceleration * Time.fixedDeltaTime, aFinalVelocity);
     }
 
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Murderer")
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 }

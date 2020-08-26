@@ -5,15 +5,15 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     private Rigidbody rigidBody;
-    public float speed = 1.5F;
-    public float terminalVelocity = 5.0F;
+    public float terminalVelocity;
     
     
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        rigidBody.drag = GetDragFromAcceleration(Physics.gravity.magnitude, terminalVelocity);
+        rigidBody.drag = 0f;
+        //rigidBody.drag = GetDragFromAcceleration(Physics.gravity.magnitude, terminalVelocity);
     }
 
     // Update is called once per frame
@@ -26,24 +26,14 @@ public class playerController : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         if (Input.GetKeyDown("space"))
         {
-            moveDirection += new Vector3(0, 100f);
-        };
-        moveDirection += new Vector3(Input.GetAxis("Horizontal"), 0);
-        moveDirection *= speed;
-
-        rigidBody.AddForce(moveDirection);
-    }
-
-    private void FixedUpdate()
-    {
-        if (rigidBody.velocity.x > 5.0F)
-        {
-            rigidBody.velocity = new Vector2(5.0F, rigidBody.velocity.y);
+            moveDirection += new Vector3(0, 2.5f);
         }
-        else if (rigidBody.velocity.x < -5.0F)
-        {
-            rigidBody.velocity = new Vector2(-5.0F, rigidBody.velocity.y);
-        }
+        float sign = Mathf.Round(Input.GetAxis("Horizontal"));
+        //moveDirection += new Vector3(sign * terminalVelocity - rigidBody.velocity.x, 0);
+        Vector3 velocity = Vector3.right * sign * terminalVelocity;
+        rigidBody.velocity = new Vector3(velocity.x, rigidBody.velocity.y);
+
+        rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
     }
 
     public static float GetDrag(float aVelocityChange, float aFinalVelocity)

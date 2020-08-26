@@ -17,6 +17,9 @@ public class Floor : MonoBehaviour
 
     GameObject leftSide;
     GameObject rightSide;
+    BoxCollider leftTrigger;
+    BoxCollider rightTrigger;
+
     BoxCollider trigger;
     float triggerScale;
     bool hasGeneratedNext = false;
@@ -24,10 +27,12 @@ public class Floor : MonoBehaviour
     void Start()
     {
         leftSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        leftSide.AddComponent<BoxCollider2D>().isTrigger = true;
+        leftTrigger = leftSide.AddComponent<BoxCollider>();
+        leftTrigger.isTrigger = true;
         leftSide.tag = "Murderer";
         rightSide = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        rightSide.AddComponent<BoxCollider2D>().isTrigger = true;
+        rightTrigger = rightSide.AddComponent<BoxCollider>();
+        rightTrigger.isTrigger = true;
         rightSide.tag = "Murderer";
         trigger = gameObject.AddComponent<BoxCollider>();
         trigger.isTrigger = true;

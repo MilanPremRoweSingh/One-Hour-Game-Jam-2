@@ -23,17 +23,14 @@ public class playerController : MonoBehaviour
         {
             rigidBody.drag = 0;
         }
-        Vector3 moveDirection = Vector3.zero;
+        Vector3 jumpVelocity = Vector3.zero;
         if (Input.GetKeyDown("space"))
         {
-            moveDirection += new Vector3(0, 2.5f);
+            jumpVelocity = Vector3.up * terminalVelocity;
         }
-        float sign = Mathf.Round(Input.GetAxis("Horizontal"));
-        //moveDirection += new Vector3(sign * terminalVelocity - rigidBody.velocity.x, 0);
-        Vector3 velocity = Vector3.right * sign * terminalVelocity;
-        rigidBody.velocity = new Vector3(velocity.x, rigidBody.velocity.y);
-
-        rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
+        float sign = Mathf.Round(Input.GetAxisRaw("Horizontal"));
+        Vector3 horzVelocity = Vector3.right * sign * terminalVelocity;
+        rigidBody.velocity = new Vector3(horzVelocity.x, jumpVelocity.y > 0f ? jumpVelocity.y : rigidBody.velocity.y);
     }
 
     public static float GetDrag(float aVelocityChange, float aFinalVelocity)

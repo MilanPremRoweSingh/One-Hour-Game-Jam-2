@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Rigidbody rigidBody;
     public float terminalVelocity;
-
-    private Vector3 startPos;
-    
+    private int jumpsUsed = 0;
+    private Vector3 startPos;    
     
     // Start is called before the first frame update
     void Start()
@@ -30,7 +29,11 @@ public class playerController : MonoBehaviour
         Vector3 jumpVelocity = Vector3.zero;
         if (Input.GetKeyDown("space"))
         {
-            if(rigidBody.velocity.y <= 0f) jumpVelocity = Vector3.up * terminalVelocity;
+            if (rigidBody.velocity.y <= 0f)
+            {
+                jumpVelocity = Vector3.up * (1f + jumpsUsed * 0.5f) * terminalVelocity;
+                jumpsUsed++;
+            }
         }
         float sign = Mathf.Round(Input.GetAxisRaw("Horizontal"));
         Vector3 horzVelocity = Vector3.right * sign * terminalVelocity;
@@ -58,6 +61,10 @@ public class playerController : MonoBehaviour
         if (other.gameObject.tag == "Murderer")
         {
             Die();
+        }
+        else if (other.gameObject.tag == "Hole")
+        {
+            if(other.transform.gameObject.transform.position.y < rigidBody.position.y) jumpsUsed = 0;
         }
     }
 }

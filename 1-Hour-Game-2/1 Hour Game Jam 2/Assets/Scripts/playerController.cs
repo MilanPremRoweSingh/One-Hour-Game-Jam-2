@@ -26,14 +26,14 @@ public class playerController : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         if (Input.GetKeyDown("space"))
         {
-            moveDirection += new Vector3(0, 2.5f);
+            moveDirection += new Vector3(0, 12.5f);
         }
         float sign = Mathf.Round(Input.GetAxis("Horizontal"));
         //moveDirection += new Vector3(sign * terminalVelocity - rigidBody.velocity.x, 0);
         Vector3 velocity = Vector3.right * sign * terminalVelocity;
-        rigidBody.velocity = new Vector3(velocity.x, rigidBody.velocity.y);
+        rigidBody.velocity = new Vector3(velocity.x, rigidBody.velocity.y + moveDirection.y);
 
-        rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
+        //rigidBody.AddForce(moveDirection, ForceMode.VelocityChange);
     }
 
     public static float GetDrag(float aVelocityChange, float aFinalVelocity)
@@ -46,11 +46,16 @@ public class playerController : MonoBehaviour
         return GetDrag(aAcceleration * Time.fixedDeltaTime, aFinalVelocity);
     }
 
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Murderer")
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 }

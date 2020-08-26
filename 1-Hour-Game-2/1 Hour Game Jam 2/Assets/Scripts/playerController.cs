@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
         UpdateMaterial();
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.drag = 0f;
-        //rigidBody.drag = GetDragFromAcceleration(Physics.gravity.magnitude, terminalVelocity);
-
         startPos = transform.position;
     }
 
@@ -52,16 +50,6 @@ public class PlayerController : MonoBehaviour
         else if (jumpsUsed == 1) GetComponent<MeshRenderer>().material = secondJump;
         else if (jumpsUsed == 2) GetComponent<MeshRenderer>().material = thirdJump;
         else GetComponent<MeshRenderer>().material = postFourthJump;
-    }
-
-    public static float GetDrag(float aVelocityChange, float aFinalVelocity)
-    {
-        return aVelocityChange / ((aFinalVelocity + aVelocityChange) * Time.fixedDeltaTime);
-    }
-
-    public static float GetDragFromAcceleration(float aAcceleration, float aFinalVelocity)
-    {
-        return GetDrag(aAcceleration * Time.fixedDeltaTime, aFinalVelocity);
     }
 
     public void Die()

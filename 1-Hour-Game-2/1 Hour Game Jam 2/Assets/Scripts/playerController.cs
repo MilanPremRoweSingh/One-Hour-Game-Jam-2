@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour
         Vector3 jumpVelocity = Vector3.zero;
         if (Input.GetKeyDown("space"))
         {
-            jumpVelocity = Vector3.up * terminalVelocity;
+            if(rigidBody.velocity.y <= 0f) jumpVelocity = Vector3.up * terminalVelocity;
         }
         float sign = Mathf.Round(Input.GetAxisRaw("Horizontal"));
         Vector3 horzVelocity = Vector3.right * sign * terminalVelocity;

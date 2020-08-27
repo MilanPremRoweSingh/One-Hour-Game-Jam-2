@@ -64,15 +64,18 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Murderer")
         {
+            print("murderer");
             Die();
         }
         else if (other.gameObject.tag == "Hole")
         {
+            print("hole");
             if (other.transform.gameObject.transform.position.y < rigidBody.position.y)
             {
                 jumpsUsed = 0;
                 UpdateMaterial();
             }
         }
+        print("something else");
     }
 }

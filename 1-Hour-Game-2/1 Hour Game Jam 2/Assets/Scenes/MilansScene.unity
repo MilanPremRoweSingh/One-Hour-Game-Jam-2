@@ -537,6 +537,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terminalVelocity: 5
+  baseJump: {fileID: 2100000, guid: 05263dc80f9241746b102176e576f3a2, type: 2}
+  secondJump: {fileID: 2100000, guid: 65222baea1447a24a8209878c7bb87c9, type: 2}
+  thirdJump: {fileID: 2100000, guid: 1bc67c5557b0c4c49872ee6c73ae2dbb, type: 2}
+  postFourthJump: {fileID: 2100000, guid: dcf15c89aa9be7d459ab9383d5b577fc, type: 2}
 --- !u!1001 &8375762556485557464
 PrefabInstance:
   m_ObjectHideFlags: 0
